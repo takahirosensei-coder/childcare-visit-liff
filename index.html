@@ -706,7 +706,7 @@
           </div>
 
 
-          <div class="choice-card">
+          <div class="choice-card" id="thirdChoiceCard" style="display:none;">
             <div class="choice-title">
               第三希望
               <span class="optional">任意</span>
@@ -1234,78 +1234,118 @@
 
   function updateClassOptions() {
 
-    const garden =
+  const garden =
+    document.getElementById(
+      'garden'
+    ).value;
+
+  const select =
+    document.getElementById(
+      'desiredClass'
+    );
+
+  const thirdChoiceCard =
+    document.getElementById(
+      'thirdChoiceCard'
+    );
+
+
+  // ==========================================
+  // 六町園だけ第三希望を表示
+  // ==========================================
+
+  const isRokucho =
+    garden.includes(
+      '六町'
+    );
+
+  if (thirdChoiceCard) {
+
+    if (isRokucho) {
+
+      thirdChoiceCard.style.display =
+        '';
+
+    } else {
+
+      thirdChoiceCard.style.display =
+        'none';
+
+      // 六町園から他園へ変更した場合、
+      // 第三希望の入力内容も消す
       document.getElementById(
-        'garden'
-      ).value;
+        'date3'
+      ).value = '';
 
-
-    const select =
       document.getElementById(
-        'desiredClass'
-      );
-
-
-    select.innerHTML =
-      '<option value="">選択してください</option>';
-
-
-    if (!garden) {
-
-      select.disabled =
-        true;
-
-      select.innerHTML =
-        '<option value="">先に見学希望園を選択してください</option>';
-
-      return;
-    }
-
-
-    let maxAge = 2;
-
-
-    if (
-      garden.includes(
-        '六町'
-      )
-    ) {
-
-      maxAge = 5;
+        'time3'
+      ).value = '';
 
     }
-
-
-    for (
-      let age = 0;
-      age <= maxAge;
-      age++
-    ) {
-
-      const option =
-        document.createElement(
-          'option'
-        );
-
-      option.value =
-        age +
-        '歳児';
-
-      option.textContent =
-        age +
-        '歳児';
-
-      select.appendChild(
-        option
-      );
-
-    }
-
-
-    select.disabled =
-      false;
 
   }
+
+
+  // ==========================================
+  // 園に応じた希望クラス
+  // ==========================================
+
+  select.innerHTML =
+    '<option value="">選択してください</option>';
+
+
+  if (!garden) {
+
+    select.disabled =
+      true;
+
+    select.innerHTML =
+      '<option value="">先に見学希望園を選択してください</option>';
+
+    return;
+  }
+
+
+  let maxAge = 2;
+
+
+  if (isRokucho) {
+
+    maxAge = 5;
+
+  }
+
+
+  for (
+    let age = 0;
+    age <= maxAge;
+    age++
+  ) {
+
+    const option =
+      document.createElement(
+        'option'
+      );
+
+    option.value =
+      age +
+      '歳児';
+
+    option.textContent =
+      age +
+      '歳児';
+
+    select.appendChild(
+      option
+    );
+
+  }
+
+
+  select.disabled =
+    false;
+
+}
 
 
   /* ==========================================
@@ -1735,37 +1775,37 @@
       +
 
       confirmGroup(
-        '見学希望日時',
-        [
-          [
-            '第一希望',
-            preferredDateText(
-              data.date1,
-              data.time1
-            )
-          ],
-
-          [
-            '第二希望',
-            data.date2
-              ? preferredDateText(
-                  data.date2,
-                  data.time2
-                )
-              : '未選択'
-          ],
-
-          [
-            '第三希望',
-            data.date3
-              ? preferredDateText(
-                  data.date3,
-                  data.time3
-                )
-              : '未選択'
-          ]
-        ]
+  '見学希望日時',
+  [
+    [
+      '第一希望',
+      preferredDateText(
+        data.date1,
+        data.time1
       )
+    ],
+
+    data.date2
+      ? [
+          '第二希望',
+          preferredDateText(
+            data.date2,
+            data.time2
+          )
+        ]
+      : null,
+
+    data.date3
+      ? [
+          '第三希望',
+          preferredDateText(
+            data.date3,
+            data.time3
+          )
+        ]
+      : null
+  ].filter(Boolean)
+)
 
       +
 
