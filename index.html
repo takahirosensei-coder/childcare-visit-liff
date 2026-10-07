@@ -3,185 +3,963 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>保育園見学申込</title>
+  <title>見学申込 | チャイルドケアサポート</title>
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
   <style>
+    * { box-sizing: border-box; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-      background: #f7f7f7;
       margin: 0;
-      padding: 24px;
-      color: #222;
+      background: #f5f7f6;
+      color: #26332d;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+        "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
     }
 
-    .box {
-      max-width: 600px;
+    .container {
+      max-width: 620px;
       margin: 0 auto;
+      padding: 18px 14px 50px;
+    }
+
+    .header {
       background: #ffffff;
-      padding: 28px 20px;
-      border-radius: 14px;
-      box-sizing: border-box;
+      border-radius: 18px;
+      padding: 24px 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    }
+
+    .brand {
+      font-size: 13px;
+      color: #6d7b74;
+      margin-bottom: 8px;
     }
 
     h1 {
-      font-size: 22px;
-      margin-top: 0;
+      font-size: 23px;
+      margin: 0 0 16px;
     }
 
-    p {
-      line-height: 1.7;
+    .lead {
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 0;
     }
 
-    #status {
-      margin-top: 24px;
-      padding: 16px;
-      background: #f2f2f2;
+    .notice {
+      margin-top: 16px;
+      padding: 13px;
+      background: #fff7e8;
       border-radius: 10px;
+      font-size: 13px;
       line-height: 1.7;
-      word-break: break-all;
     }
 
-    .success {
-      font-weight: bold;
-      color: #16883e;
+    .section {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 22px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
     }
 
-    .error {
-      font-weight: bold;
-      color: #c62828;
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e7ece9;
+    }
+
+    .field {
+      margin-bottom: 24px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    label.title {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    .required {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: #e95656;
+      color: white;
+      font-size: 10px;
+      vertical-align: 2px;
+    }
+
+    .optional {
+      color: #8a9690;
+      font-size: 11px;
+      margin-left: 5px;
+    }
+
+    .help {
+      font-size: 12px;
+      color: #68756f;
+      line-height: 1.65;
+      margin: 0 0 10px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px 12px;
+      border: 1px solid #ccd5d0;
+      border-radius: 10px;
+      background: #fff;
+      font-size: 16px;
+      color: #26332d;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 12px 10px;
+      margin-bottom: 7px;
+      background: #f8faf9;
+      border-radius: 9px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .choice input {
+      margin-top: 3px;
+      transform: scale(1.15);
+    }
+
+    .privacy {
+      padding: 14px;
+      background: #f7f9f8;
+      border-radius: 10px;
+      font-size: 12px;
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+
+    .date-block {
+      padding: 15px;
+      background: #f7f9f8;
+      border-radius: 12px;
+      margin-bottom: 14px;
+    }
+
+    .date-block-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .time-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .time-options label {
+      flex: 1;
+      min-width: 95px;
+      text-align: center;
+      padding: 10px 5px;
+      border: 1px solid #ccd5d0;
+      border-radius: 9px;
+      background: #fff;
+      font-size: 13px;
+    }
+
+    .time-options input {
+      margin-right: 4px;
+    }
+
+    .button {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #2e7655;
+      color: #fff;
+    }
+
+    .secondary {
+      background: #e9eeeb;
+      color: #34433b;
+      margin-bottom: 10px;
+    }
+
+    .button-area {
+      margin-top: 20px;
+    }
+
+    .error-message {
+      display: none;
+      margin: 0 0 15px;
+      padding: 12px;
+      background: #fff0f0;
+      color: #b52c2c;
+      border-radius: 9px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    #loading {
+      padding: 50px 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    #formScreen,
+    #confirmScreen,
+    #completeScreen {
+      display: none;
+    }
+
+    .confirm-row {
+      padding: 14px 0;
+      border-bottom: 1px solid #e8ecea;
+    }
+
+    .confirm-label {
+      color: #718078;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .confirm-value {
+      font-size: 15px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .test-banner {
+      background: #fff4ce;
+      border-radius: 10px;
+      padding: 11px;
+      margin-bottom: 14px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .line-status {
+      font-size: 11px;
+      color: #829089;
+      margin-top: 14px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="box">
+<div class="container">
 
-    <h1>保育園見学申込</h1>
+  <div id="loading">
+    LINEとの接続を確認しています…
+  </div>
 
-    <p>
-      株式会社チャイルドケアサポート<br>
-      園見学のお申し込み
-    </p>
+  <div id="formScreen">
 
-    <div id="status">
-      ① ページを読み込みました
+    <div class="test-banner">
+      現在はテスト版です。入力内容はまだ送信されません。
+    </div>
+
+    <div class="header">
+      <div class="brand">株式会社チャイルドケアサポート</div>
+      <h1>見学申込</h1>
+
+      <p class="lead">
+        トータス保育園の見学をご希望いただき、ありがとうございます。<br><br>
+        見学をご希望の方は、下記の必要事項と見学希望日時をご入力ください。<br><br>
+        内容を確認後、担当者より公式LINEにて見学日時をご連絡いたします。
+      </p>
+
+      <div class="notice">
+        ※本フォームの送信時点では、見学予約は確定しておりません。<br>
+        担当者からの「予約確定」のご連絡をもって、見学日時の確定となります。
+      </div>
+
+      <div class="line-status" id="lineStatus"></div>
+    </div>
+
+
+    <form id="visitForm">
+
+      <div class="section">
+        <div class="section-title">ご案内・見学希望園</div>
+
+        <div class="field">
+          <label class="title">
+            ご案内・個人情報の取り扱い
+            <span class="required">必須</span>
+          </label>
+
+          <div class="privacy">
+            <strong>【個人情報の取り扱いについて】</strong><br><br>
+            ご入力いただいた個人情報は、保育園見学の受付・ご連絡、
+            施設見学および入園に関するご案内・ご相談、
+            その他これらに付随する対応のために利用いたします。<br><br>
+            お預かりした個人情報は適切に管理し、
+            法令に基づく場合を除き、ご本人の同意なく第三者へ提供することはありません。<br><br>
+            株式会社チャイルドケアサポート
+          </div>
+
+          <label class="choice">
+            <input type="checkbox" id="privacyAgree">
+            <span>上記の内容を確認し、同意します</span>
+          </label>
+        </div>
+
+
+        <div class="field">
+          <label class="title">
+            見学希望園をお選びください
+            <span class="required">必須</span>
+          </label>
+
+          <div class="notice">
+            現在、【ちびっこランド六町】の10月中の見学枠は満枠となっております。<br>
+            見学をご希望の方は、11月以降の日程をお選びください。
+          </div>
+
+          <select id="garden">
+            <option value="">選択してください</option>
+            <option>トータス保育園 南花畑園</option>
+            <option>トータス保育園 保木間園</option>
+            <option>トータス保育園 梅島園</option>
+            <option>ちびっこランド 六町園</option>
+          </select>
+        </div>
+
+
+        <div class="field">
+          <label class="title">
+            希望クラス
+            <span class="required">必須</span>
+          </label>
+
+          <p class="help">
+            トータス保育園 南花畑園・保木間園・梅島園は0〜2歳児クラス、
+            ちびっこランド六町園は0〜5歳児クラスです。
+          </p>
+
+          <select id="desiredClass">
+            <option value="">先に見学希望園を選択してください</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="section">
+        <div class="section-title">見学希望日時</div>
+
+        <p class="help">
+          ご希望の日程と時間帯をお選びください。<br>
+          園の予定を確認のうえ、見学可能な時間をご案内いたします。<br>
+          ※ご希望日時は予約確定ではありません。
+        </p>
+
+        <div class="date-block">
+          <div class="date-block-title">第一希望 <span class="required">必須</span></div>
+          <input type="date" id="date1">
+
+          <div class="time-options">
+            <label><input type="radio" name="time1" value="午前">午前</label>
+            <label><input type="radio" name="time1" value="午後">午後</label>
+            <label><input type="radio" name="time1" value="どちらでも可">どちらでも可</label>
+          </div>
+        </div>
+
+        <div class="date-block">
+          <div class="date-block-title">第二希望 <span class="required">必須</span></div>
+          <input type="date" id="date2">
+
+          <div class="time-options">
+            <label><input type="radio" name="time2" value="午前">午前</label>
+            <label><input type="radio" name="time2" value="午後">午後</label>
+            <label><input type="radio" name="time2" value="どちらでも可">どちらでも可</label>
+          </div>
+        </div>
+
+        <div class="date-block">
+          <div class="date-block-title">第三希望 <span class="required">必須</span></div>
+          <input type="date" id="date3">
+
+          <div class="time-options">
+            <label><input type="radio" name="time3" value="午前">午前</label>
+            <label><input type="radio" name="time3" value="午後">午後</label>
+            <label><input type="radio" name="time3" value="どちらでも可">どちらでも可</label>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="section">
+        <div class="section-title">お子さまについて</div>
+
+        <div class="field">
+          <label class="title">
+            お子さまのお名前
+            <span class="required">必須</span>
+          </label>
+          <input type="text" id="childName" placeholder="例：山田 太郎">
+        </div>
+
+        <div class="field">
+          <label class="title">
+            お子さまの生年月日
+            <span class="required">必須</span>
+          </label>
+          <input type="date" id="birthday">
+        </div>
+
+        <div class="field">
+          <label class="title">
+            入園希望時期
+            <span class="required">必須</span>
+          </label>
+
+          <select id="entryMonth">
+            <option value="">選択してください</option>
+            <option>2026年11月</option>
+            <option>2026年12月</option>
+            <option>2027年1月</option>
+            <option>2027年2月</option>
+            <option>2027年3月</option>
+            <option>2027年4月</option>
+            <option>未定</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="section">
+        <div class="section-title">保護者さまについて</div>
+
+        <div class="field">
+          <label class="title">
+            保護者様のお名前
+            <span class="required">必須</span>
+          </label>
+          <input type="text" id="guardianName" placeholder="例：山田 花子">
+        </div>
+
+        <div class="field">
+          <label class="title">
+            電話番号
+            <span class="required">必須</span>
+          </label>
+          <input type="tel" id="phone" placeholder="例：09012345678">
+        </div>
+      </div>
+
+
+      <div class="section">
+        <div class="section-title">その他・確認事項</div>
+
+        <p class="help">
+          見学にあたり、ご質問や事前に伝えておきたいことがございましたらご入力ください。
+        </p>
+
+        <div class="field">
+          <label class="title">
+            質問・ご相談など
+            <span class="optional">任意</span>
+          </label>
+
+          <textarea id="question" placeholder="ご質問・ご相談がございましたらご入力ください"></textarea>
+        </div>
+      </div>
+
+
+      <div id="errorMessage" class="error-message"></div>
+
+      <button type="button" class="button primary" onclick="showConfirmation()">
+        入力内容を確認する
+      </button>
+
+    </form>
+  </div>
+
+
+  <div id="confirmScreen">
+
+    <div class="test-banner">
+      現在はテスト版です。まだ申込は送信されません。
+    </div>
+
+    <div class="section">
+      <div class="section-title">入力内容の確認</div>
+
+      <p class="help">
+        以下の内容をご確認ください。
+      </p>
+
+      <div id="confirmationList"></div>
+
+      <div class="button-area">
+        <button type="button" class="button secondary" onclick="backToForm()">
+          入力内容を修正する
+        </button>
+
+        <button type="button" class="button primary" onclick="testSubmit()">
+          この内容で申し込む
+        </button>
+      </div>
     </div>
 
   </div>
 
-  <script>
 
-    const LIFF_ID = '2011888851-oml1Okhp';
+  <div id="completeScreen">
+    <div class="section">
+      <div class="section-title">テスト完了</div>
 
-    const status = document.getElementById('status');
+      <p style="line-height:1.8;">
+        入力から確認画面まで正常に動作しました。<br><br>
+        現在はテスト版のため、スプレッドシートには送信していません。
+      </p>
 
-    function show(message) {
-      status.innerHTML = message;
-    }
+      <button type="button" class="button secondary" onclick="backToForm()">
+        フォームに戻る
+      </button>
+    </div>
+  </div>
 
-    function escapeHtml(value) {
-      return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
+</div>
 
-    async function initializeLiff() {
 
-      try {
+<script>
 
-        show('② LIFF SDKを確認しています…');
+const LIFF_ID = '2011888851-oml1Okhp';
 
-        if (typeof liff === 'undefined') {
-          show(
-            '<div class="error">❌ LIFF SDKを読み込めませんでした</div>'
-          );
-          return;
-        }
+let lineProfile = null;
 
-        show('③ LIFFを初期化しています…');
 
-        await liff.init({
-          liffId: LIFF_ID
-        });
+/* ==========================
+   LIFF
+========================== */
 
-        show(
-          '④ LIFF初期化成功<br><br>' +
-          'LINEログイン状態を確認しています…'
-        );
+async function initializeLiff() {
 
-        if (!liff.isLoggedIn()) {
+  try {
 
-          show(
-            '⑤ LINEログインが必要です。<br><br>' +
-            'LINEログイン画面へ移動します…'
-          );
-
-          liff.login();
-          return;
-        }
-
-        show(
-          '⑤ LINEログイン確認済み<br><br>' +
-          'プロフィールを取得しています…'
-        );
-
-        const profile = await liff.getProfile();
-
-        show(`
-          <div class="success">
-            ✅ LINEとの接続に成功しました
-          </div>
-
-          <p>
-            表示名：${escapeHtml(profile.displayName)}
-          </p>
-
-          <p>
-            LINE User ID：<br>
-            ${escapeHtml(profile.userId)}
-          </p>
-
-          <p>
-            LINE内ブラウザ：${liff.isInClient() ? 'YES' : 'NO'}
-          </p>
-
-          <p>
-            現在のURL：<br>
-            ${escapeHtml(location.href)}
-          </p>
-        `);
-
-      } catch (error) {
-
-        console.error(error);
-
-        show(
-          '<div class="error">❌ LIFF初期化エラー</div><br>' +
-          '<strong>エラー内容：</strong><br>' +
-          escapeHtml(
-            error && error.message
-              ? error.message
-              : String(error)
-          ) +
-          '<br><br>' +
-          '<strong>現在のURL：</strong><br>' +
-          escapeHtml(location.href)
-        );
-      }
-    }
-
-    window.addEventListener('load', function () {
-      initializeLiff();
+    await liff.init({
+      liffId: LIFF_ID
     });
 
-  </script>
+    if (!liff.isLoggedIn()) {
+      liff.login();
+      return;
+    }
+
+    lineProfile = await liff.getProfile();
+
+    document.getElementById('lineStatus').textContent =
+      'LINE接続済み：' + lineProfile.displayName;
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('formScreen').style.display = 'block';
+
+  } catch (error) {
+
+    document.getElementById('loading').innerHTML =
+      'LINEとの接続でエラーが発生しました。<br><br>' +
+      escapeHtml(error.message || String(error));
+  }
+}
+
+
+/* ==========================
+   園によるクラス制御
+========================== */
+
+document.getElementById('garden').addEventListener('change', function () {
+
+  const garden = this.value;
+  const select = document.getElementById('desiredClass');
+
+  select.innerHTML = '<option value="">選択してください</option>';
+
+  if (!garden) {
+    select.innerHTML =
+      '<option value="">先に見学希望園を選択してください</option>';
+    return;
+  }
+
+  const maxAge =
+    garden === 'ちびっこランド 六町園'
+      ? 5
+      : 2;
+
+  for (let i = 0; i <= maxAge; i++) {
+
+    const option = document.createElement('option');
+
+    option.value = i + '歳児';
+    option.textContent = i + '歳児';
+
+    select.appendChild(option);
+  }
+});
+
+
+/* ==========================
+   日付
+   テスト版：
+   土日を選択不可
+   祝日判定は次の段階でGASと接続
+========================== */
+
+function setupDates() {
+
+  const today = new Date();
+
+  let minimum = new Date(today);
+  let count = 0;
+
+  while (count < 2) {
+
+    minimum.setDate(minimum.getDate() + 1);
+
+    const day = minimum.getDay();
+
+    if (day !== 0 && day !== 6) {
+      count++;
+    }
+  }
+
+  const maximum = new Date(today);
+  maximum.setMonth(maximum.getMonth() + 2);
+
+  const minText = formatInputDate(minimum);
+  const maxText = formatInputDate(maximum);
+
+  ['date1', 'date2', 'date3'].forEach(id => {
+
+    const input = document.getElementById(id);
+
+    input.min = minText;
+    input.max = maxText;
+
+    input.addEventListener('change', function () {
+
+      if (!this.value) return;
+
+      const date = new Date(this.value + 'T00:00:00');
+      const day = date.getDay();
+
+      if (day === 0 || day === 6) {
+
+        alert('土曜日・日曜日は選択できません。');
+
+        this.value = '';
+      }
+    });
+  });
+}
+
+
+function formatInputDate(date) {
+
+  const y = date.getFullYear();
+
+  const m =
+    String(date.getMonth() + 1).padStart(2, '0');
+
+  const d =
+    String(date.getDate()).padStart(2, '0');
+
+  return `${y}-${m}-${d}`;
+}
+
+
+/* ==========================
+   確認画面
+========================== */
+
+function showConfirmation() {
+
+  const data = getFormData();
+
+  const missing = [];
+
+  if (!document.getElementById('privacyAgree').checked)
+    missing.push('個人情報の取り扱いへの同意');
+
+  if (!data.garden)
+    missing.push('見学希望園');
+
+  if (!data.desiredClass)
+    missing.push('希望クラス');
+
+  if (!data.date1)
+    missing.push('第一希望日');
+
+  if (!data.time1)
+    missing.push('第一希望時間帯');
+
+  if (!data.date2)
+    missing.push('第二希望日');
+
+  if (!data.time2)
+    missing.push('第二希望時間帯');
+
+  if (!data.date3)
+    missing.push('第三希望日');
+
+  if (!data.time3)
+    missing.push('第三希望時間帯');
+
+  if (!data.childName)
+    missing.push('お子さまのお名前');
+
+  if (!data.birthday)
+    missing.push('お子さまの生年月日');
+
+  if (!data.entryMonth)
+    missing.push('入園希望時期');
+
+  if (!data.guardianName)
+    missing.push('保護者様のお名前');
+
+  if (!data.phone)
+    missing.push('電話番号');
+
+
+  if (missing.length > 0) {
+
+    const error = document.getElementById('errorMessage');
+
+    error.innerHTML =
+      '未入力の項目があります。<br>' +
+      missing.map(v => '・' + escapeHtml(v)).join('<br>');
+
+    error.style.display = 'block';
+
+    error.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+
+  document.getElementById('errorMessage').style.display = 'none';
+
+  const rows = [
+    ['見学希望園をお選びください', data.garden],
+    ['希望クラス', data.desiredClass],
+    ['第一希望', formatJapaneseDate(data.date1)],
+    ['第一希望時間帯', data.time1],
+    ['第二希望', formatJapaneseDate(data.date2)],
+    ['第二希望時間帯', data.time2],
+    ['第三希望', formatJapaneseDate(data.date3)],
+    ['第三希望時間帯', data.time3],
+    ['お子さまのお名前', data.childName],
+    ['お子さまの生年月日', formatJapaneseDate(data.birthday)],
+    ['入園希望時期', data.entryMonth],
+    ['保護者様のお名前', data.guardianName],
+    ['電話番号', data.phone],
+    ['質問・ご相談など', data.question || 'なし']
+  ];
+
+
+  document.getElementById('confirmationList').innerHTML =
+    rows.map(row => `
+      <div class="confirm-row">
+        <div class="confirm-label">
+          ${escapeHtml(row[0])}
+        </div>
+
+        <div class="confirm-value">
+          ${escapeHtml(row[1])}
+        </div>
+      </div>
+    `).join('');
+
+
+  document.getElementById('formScreen').style.display = 'none';
+  document.getElementById('confirmScreen').style.display = 'block';
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+
+/* ==========================
+   入力値取得
+========================== */
+
+function getFormData() {
+
+  return {
+
+    garden:
+      document.getElementById('garden').value,
+
+    desiredClass:
+      document.getElementById('desiredClass').value,
+
+    date1:
+      document.getElementById('date1').value,
+
+    time1:
+      getRadioValue('time1'),
+
+    date2:
+      document.getElementById('date2').value,
+
+    time2:
+      getRadioValue('time2'),
+
+    date3:
+      document.getElementById('date3').value,
+
+    time3:
+      getRadioValue('time3'),
+
+    childName:
+      document.getElementById('childName').value.trim(),
+
+    birthday:
+      document.getElementById('birthday').value,
+
+    entryMonth:
+      document.getElementById('entryMonth').value,
+
+    guardianName:
+      document.getElementById('guardianName').value.trim(),
+
+    phone:
+      document.getElementById('phone').value.trim(),
+
+    question:
+      document.getElementById('question').value.trim(),
+
+    lineUserId:
+      lineProfile ? lineProfile.userId : '',
+
+    lineDisplayName:
+      lineProfile ? lineProfile.displayName : ''
+  };
+}
+
+
+function getRadioValue(name) {
+
+  const selected =
+    document.querySelector(
+      `input[name="${name}"]:checked`
+    );
+
+  return selected ? selected.value : '';
+}
+
+
+/* ==========================
+   戻る
+========================== */
+
+function backToForm() {
+
+  document.getElementById('confirmScreen').style.display = 'none';
+  document.getElementById('completeScreen').style.display = 'none';
+  document.getElementById('formScreen').style.display = 'block';
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+
+/* ==========================
+   テスト送信
+========================== */
+
+function testSubmit() {
+
+  document.getElementById('confirmScreen').style.display = 'none';
+  document.getElementById('completeScreen').style.display = 'block';
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+
+/* ==========================
+   表示補助
+========================== */
+
+function formatJapaneseDate(value) {
+
+  if (!value) return '';
+
+  const date = new Date(value + 'T00:00:00');
+
+  return (
+    date.getFullYear() + '年' +
+    (date.getMonth() + 1) + '月' +
+    date.getDate() + '日'
+  );
+}
+
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+
+/* ==========================
+   起動
+========================== */
+
+window.addEventListener('load', function () {
+
+  setupDates();
+  initializeLiff();
+
+});
+
+</script>
 
 </body>
 </html>
