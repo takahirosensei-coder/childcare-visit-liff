@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>保育園見学申込</title>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 24px;
+      color: #222;
+    }
+
+    .box {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 28px 20px;
+      border-radius: 14px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-top: 0;
+    }
+
+    p {
+      line-height: 1.7;
+    }
+
+    #status {
+      margin-top: 24px;
+      padding: 16px;
+      background: #f2f2f2;
+      border-radius: 10px;
+      line-height: 1.7;
+      word-break: break-all;
+    }
+
+    .success {
+      font-weight: bold;
+      color: #16883e;
+    }
+
+    .error {
+      font-weight: bold;
+      color: #c62828;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <h1>保育園見学申込</h1>
+
+    <p>
+      株式会社チャイルドケアサポート<br>
+      園見学のお申し込み
+    </p>
+
+    <div id="status">
+      ① ページを読み込みました
+    </div>
+
+  </div>
+
+  <script>
+
+    const LIFF_ID = '2011888851-omI1Okhp';
+
+    const status = document.getElementById('status');
+
+    function show(message) {
+      status.innerHTML = message;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    async function initializeLiff() {
+
+      try {
+
+        show('② LIFF SDKを確認しています…');
+
+        if (typeof liff === 'undefined') {
+          show(
+            '<div class="error">❌ LIFF SDKを読み込めませんでした</div>'
+          );
+          return;
+        }
+
+        show('③ LIFFを初期化しています…');
+
+        await liff.init({
+          liffId: LIFF_ID
+        });
+
+        show(
+          '④ LIFF初期化成功<br><br>' +
+          'LINEログイン状態を確認しています…'
+        );
+
+        if (!liff.isLoggedIn()) {
+
+          show(
+            '⑤ LINEログインが必要です。<br><br>' +
+            'LINEログイン画面へ移動します…'
+          );
+
+          liff.login();
+          return;
+        }
+
+        show(
+          '⑤ LINEログイン確認済み<br><br>' +
+          'プロフィールを取得しています…'
+        );
+
+        const profile = await liff.getProfile();
+
+        show(`
+          <div class="success">
+            ✅ LINEとの接続に成功しました
+          </div>
+
+          <p>
+            表示名：${escapeHtml(profile.displayName)}
+          </p>
+
+          <p>
+            LINE User ID：<br>
+            ${escapeHtml(profile.userId)}
+          </p>
+
+          <p>
+            LINE内ブラウザ：${liff.isInClient() ? 'YES' : 'NO'}
+          </p>
+
+          <p>
+            現在のURL：<br>
+            ${escapeHtml(location.href)}
+          </p>
+        `);
+
+      } catch (error) {
+
+        console.error(error);
+
+        show(
+          '<div class="error">❌ LIFF初期化エラー</div><br>' +
+          '<strong>エラー内容：</strong><br>' +
+          escapeHtml(
+            error && error.message
+              ? error.message
+              : String(error)
+          ) +
+          '<br><br>' +
+          '<strong>現在のURL：</strong><br>' +
+          escapeHtml(location.href)
+        );
+      }
+    }
+
+    window.addEventListener('load', function () {
+      initializeLiff();
+    });
+
+  </script>
+
+</body>
+</html>
