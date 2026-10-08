@@ -805,7 +805,19 @@
             placeholder="例：山田 太郎"
           >
         </div>
+<div class="field">
+  <label class="label">
+    保護者様との続柄
+    <span class="required">必須</span>
+  </label>
 
+  <select id="guardianRelation">
+    <option value="">選択してください</option>
+    <option value="母">母</option>
+    <option value="父">父</option>
+    <option value="その他">その他</option>
+  </select>
+</div>
         <div class="field">
           <label class="label">
             電話番号
@@ -899,7 +911,7 @@
         <button
           type="button"
           class="main-button"
-          onclick="testSubmit()"
+          onclick="submitVisitApplication()"
         >
           この内容で送信する
         </button>
@@ -1396,7 +1408,10 @@
 
       guardianName:
         valueOf('guardianName'),
-
+      
+guardianRelation:
+  valueOf('guardianRelation'),
+      
       phone:
         valueOf('phone'),
 
@@ -1559,6 +1574,11 @@
 
     }
 
+    if (!data.guardianRelation) {
+
+  return '保護者様との続柄を選択してください。';
+
+}
 
     if (!data.phone) {
 
@@ -1838,6 +1858,10 @@
             '保護者様のお名前',
             data.guardianName
           ],
+          [
+  '保護者様との続柄',
+  data.guardianRelation
+],
           [
             '電話番号',
             data.phone
