@@ -2046,6 +2046,61 @@ guardianRelation:
   }
 
 
+async function submitVisitApplication() {
+
+  const data = getFormData();
+
+  const error = validateForm(data);
+
+  if (error) {
+    showError(error);
+    return;
+  }
+
+  try {
+
+    const response = await fetch(DATE_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(
+        result.message || '送信に失敗しました。'
+      );
+    }
+
+    document.getElementById(
+      'confirmPage'
+    ).style.display = 'none';
+
+    document.getElementById(
+      'completePage'
+    ).style.display = 'block';
+
+    window.scrollTo(0, 0);
+
+  } catch (error) {
+
+    console.error(
+      'VISIT SUBMIT ERROR',
+      error
+    );
+
+    showError(
+      '送信できませんでした。通信環境をご確認のうえ、もう一度お試しください。'
+    );
+
+  }
+}
+
+  
+
   /* ==========================================
      現在はテスト送信
   ========================================== */
