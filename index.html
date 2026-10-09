@@ -8,530 +8,780 @@
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+  * {
+    box-sizing: border-box;
+  }
 
-    :root {
-      --green: #668f7b;
-      --green-dark: #4f7462;
-      --green-light: #edf3ef;
-      --beige: #f7f5f0;
-      --text: #333333;
-      --sub: #747474;
-      --line: #deded9;
-      --white: #ffffff;
-      --red: #b85c5c;
-    }
+  :root {
+    --green: #148b78;
+    --green-dark: #107c6b;
+    --green-light: #e6f3f0;
+    --mint-bg: #d9f0ed;
+    --input-bg: #f2f4f3;
+    --text: #252d2c;
+    --sub: #747d7b;
+    --line: #e6e9e8;
+    --white: #ffffff;
+    --red: #b85c5c;
+  }
 
-    html {
-      scroll-behavior: smooth;
-    }
+  html {
+    scroll-behavior: smooth;
+  }
 
-    body {
-      margin: 0;
-      background: #ffffff;
-      color: var(--text);
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Helvetica Neue",
-        "Hiragino Kaku Gothic ProN",
-        "Hiragino Sans",
-        "Yu Gothic",
-        Meiryo,
-        sans-serif;
-      line-height: 1.8;
-      -webkit-font-smoothing: antialiased;
-    }
+  body {
+    margin: 0;
+    background: var(--mint-bg);
+    color: var(--text);
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "Helvetica Neue",
+      "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans",
+      "Yu Gothic",
+      Meiryo,
+      sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
 
-    .page {
-      width: 100%;
-      overflow: hidden;
-    }
+  .page {
+    width: 100%;
+  }
 
-    /* ========================================
-       HERO
-    ======================================== */
+
+  /* ========================================
+     HERO
+  ======================================== */
+
+  .hero {
+    width: calc(100% - 48px);
+    max-width: 640px;
+
+    margin: 48px auto 0;
+    padding: 32px 24px;
+
+    background: #ffffff;
+    border-radius: 26px 26px 0 0;
+
+    text-align: left;
+
+    box-shadow:
+      0 18px 45px rgba(35, 105, 91, 0.15);
+  }
+
+  .hero-company {
+    margin-bottom: 10px;
+
+    color: #148b78;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+  }
+
+  .hero-en {
+    margin-bottom: 10px;
+
+    color: #148b78;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    margin: 0 0 20px;
+
+    color: #148b78;
+
+    font-size: 28px;
+    font-weight: 750;
+    letter-spacing: .02em;
+    line-height: 1.4;
+  }
+
+  .hero-line {
+    display: none;
+  }
+
+  .hero-text {
+    margin: 0;
+
+    color: #505a58;
+
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+
+  /* ========================================
+     MAIN CARD
+  ======================================== */
+
+  .container {
+    width: calc(100% - 48px);
+    max-width: 640px;
+
+    margin: 0 auto 80px;
+    padding: 0 24px 40px;
+
+    background: #ffffff;
+
+    border-radius: 0 0 26px 26px;
+
+    box-shadow:
+      0 18px 45px rgba(35, 105, 91, 0.15);
+  }
+
+
+  /* ========================================
+     LINE STATUS
+  ======================================== */
+
+  .line-status {
+    margin: 0;
+    padding: 15px 0 22px;
+
+    background: transparent;
+
+    color: #505a58;
+
+    font-size: 13px;
+    text-align: left;
+  }
+
+  .line-status.error {
+    color: var(--red);
+  }
+
+
+  /* ========================================
+     SECTION
+  ======================================== */
+
+  .section {
+    padding: 10px 0 28px;
+    border: none;
+  }
+
+  .section + .section {
+    padding-top: 10px;
+  }
+
+  .section-head {
+    margin: 28px 0 20px;
+  }
+
+  .section-number {
+    display: inline-block;
+
+    margin-right: 7px;
+
+    color: #148b78;
+
+    font-size: 13px;
+    font-weight: 750;
+    letter-spacing: .08em;
+  }
+
+  .section-en {
+    display: inline-block;
+
+    color: #8b9593;
+
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    margin: 8px 0 0;
+    padding: 0 0 11px;
+
+    border-bottom: 2px solid #cce7e2;
+
+    color: #148b78;
+
+    font-size: 16px;
+    font-weight: 750;
+    letter-spacing: .04em;
+  }
+
+  .section-description {
+    margin: 14px 0 0;
+
+    color: #66706e;
+
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+
+  /* ========================================
+     FIELD
+  ======================================== */
+
+  .field {
+    margin: 0;
+    padding: 19px 0;
+  }
+
+  .field:last-child {
+    margin-bottom: 0;
+  }
+
+  .label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #252d2c;
+
+    font-size: 14px;
+    font-weight: 650;
+  }
+
+  .required,
+  .optional {
+    display: inline-block;
+
+    margin-left: 7px;
+    padding: 2px 7px;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    vertical-align: 2px;
+  }
+
+  .required {
+    background: #148b78;
+    color: #ffffff;
+  }
+
+  .optional {
+    background: #eceeed;
+    color: #747d7b;
+  }
+
+  .help {
+    margin: -2px 0 12px;
+
+    color: #747d7b;
+
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+
+  /* ========================================
+     INPUT
+  ======================================== */
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+    min-height: 50px;
+
+    padding: 13px;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #f2f4f3;
+    color: #252d2c;
+
+    font-size: 16px;
+
+    box-shadow: none;
+
+    transition:
+      border-color .2s,
+      background .2s,
+      box-shadow .2s;
+  }
+
+  textarea {
+    min-height: 130px;
+    resize: vertical;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    background: #ffffff;
+
+    border-color: #148b78;
+
+    box-shadow:
+      0 0 0 3px rgba(20, 139, 120, 0.13);
+  }
+
+  select:disabled {
+    background: #eceeed;
+    color: #9aa19f;
+  }
+
+
+  /* ========================================
+     PRIVACY
+  ======================================== */
+
+  .privacy-box {
+    padding: 18px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #f2f4f3;
+
+    color: #505a58;
+
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  .privacy-title {
+    margin-bottom: 10px;
+
+    color: #148b78;
+
+    font-weight: 700;
+  }
+
+  .agree-box {
+    margin-top: 14px;
+    padding: 15px;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    background: #f2f4f3;
+  }
+
+  .agree-label {
+    display: flex;
+
+    gap: 12px;
+    align-items: flex-start;
+
+    cursor: pointer;
+
+    color: #35403e;
+
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .agree-label input {
+    width: 20px;
+    height: 20px;
+
+    margin: 2px 0 0;
+
+    flex: 0 0 auto;
+
+    accent-color: #148b78;
+  }
+
+
+  /* ========================================
+     NOTICE
+  ======================================== */
+
+  .notice {
+    margin: 0 0 12px;
+    padding: 16px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #e6f3f0;
+
+    color: #107c6b;
+
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+
+  /* ========================================
+     PREFERRED DATES
+  ======================================== */
+
+  .choice-card {
+    margin-bottom: 14px;
+    padding: 18px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #f2f4f3;
+  }
+
+  .choice-title {
+    margin-bottom: 14px;
+
+    color: #252d2c;
+
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .choice-title span {
+    margin-left: 7px;
+  }
+
+  .choice-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .choice-grid select {
+    background: #ffffff;
+    border: 1px solid transparent;
+  }
+
+  .choice-grid select:focus {
+    border-color: #148b78;
+
+    box-shadow:
+      0 0 0 3px rgba(20, 139, 120, 0.13);
+  }
+
+  .date-loading {
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background: #f2f4f3;
+
+    color: #66706e;
+
+    font-size: 13px;
+    text-align: center;
+  }
+
+
+  /* ========================================
+     ERROR
+  ======================================== */
+
+  .error-box {
+    display: none;
+
+    margin: 20px 0 0;
+    padding: 16px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #fff3f3;
+
+    color: #9b3d3d;
+
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+
+  /* ========================================
+     BUTTON
+  ======================================== */
+
+  .button-area {
+    padding: 28px 0 8px;
+  }
+
+  .main-button {
+    display: block;
+
+    width: 100%;
+    min-height: 58px;
+
+    padding: 17px 20px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #148b78;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .04em;
+
+    cursor: pointer;
+
+    box-shadow:
+      0 8px 20px rgba(20, 139, 120, 0.20);
+  }
+
+  .main-button:active {
+    transform: translateY(1px);
+
+    background: #107c6b;
+
+    box-shadow:
+      0 4px 12px rgba(20, 139, 120, 0.18);
+  }
+
+  .main-button:disabled {
+    opacity: .5;
+    cursor: default;
+  }
+
+  .sub-button {
+    display: block;
+
+    width: 100%;
+    min-height: 54px;
+
+    margin-top: 12px;
+    padding: 16px 20px;
+
+    border: 1px solid #148b78;
+    border-radius: 12px;
+
+    background: #ffffff;
+    color: #148b78;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+  }
+
+
+  /* ========================================
+     CONFIRM
+  ======================================== */
+
+  #confirmPage,
+  #completePage {
+    display: none;
+  }
+
+  #confirmPage .hero {
+    padding-bottom: 18px;
+  }
+
+  .confirm-intro {
+    padding: 16px 0 8px;
+    text-align: left;
+  }
+
+  .confirm-intro h2 {
+    margin: 0 0 8px;
+
+    color: #148b78;
+
+    font-size: 18px;
+    font-weight: 750;
+  }
+
+  .confirm-intro p {
+    margin: 0;
+
+    color: #747d7b;
+
+    font-size: 13px;
+  }
+
+  .confirm-group {
+    padding: 26px 0 18px;
+
+    border-bottom: 1px solid #e6e9e8;
+  }
+
+  .confirm-group-title {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    border-bottom: 2px solid #cce7e2;
+
+    color: #148b78;
+
+    font-size: 15px;
+    font-weight: 750;
+    letter-spacing: .04em;
+  }
+
+  .confirm-row {
+    padding: 12px 4px;
+
+    border-bottom: 1px solid #f0f2f1;
+  }
+
+  .confirm-row:last-child {
+    border-bottom: none;
+  }
+
+  .confirm-label {
+    margin-bottom: 5px;
+
+    color: #747d7b;
+
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .confirm-value {
+    color: #252d2c;
+
+    font-size: 16px;
+    font-weight: 650;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+
+  /* ========================================
+     COMPLETE
+  ======================================== */
+
+  #completePage .container {
+    margin-top: 48px;
+
+    padding-top: 40px;
+
+    border-radius: 26px;
+  }
+
+  .complete {
+    padding: 40px 8px 28px;
+
+    text-align: center;
+  }
+
+  .complete-mark {
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 22px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #e6f3f0;
+    color: #148b78;
+
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 58px;
+  }
+
+  .complete h2 {
+    margin: 0 0 18px;
+
+    color: #148b78;
+
+    font-size: 21px;
+    font-weight: 750;
+    line-height: 1.6;
+  }
+
+  .complete p {
+    margin: 0;
+
+    color: #505a58;
+
+    font-size: 14px;
+    line-height: 2;
+  }
+
+  .test-label {
+    display: inline-block;
+
+    margin-top: 22px;
+    padding: 7px 12px;
+
+    border-radius: 8px;
+
+    background: #e6f3f0;
+    color: #107c6b;
+
+    font-size: 11px;
+  }
+
+
+  /* ========================================
+     PC / TABLET
+  ======================================== */
+
+  @media (min-width: 600px) {
 
     .hero {
-      padding: 52px 24px 46px;
-      background: var(--beige);
-      text-align: center;
-      border-bottom: 1px solid #ebe9e4;
-    }
-
-    .hero-company {
-      margin-bottom: 22px;
-      font-size: 11px;
-      letter-spacing: .18em;
-      color: var(--sub);
-    }
-
-    .hero-en {
-      margin-bottom: 8px;
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .22em;
-      text-transform: uppercase;
+      margin-top: 60px;
+      padding: 38px 32px 32px;
     }
 
     .hero h1 {
-      margin: 0;
-      font-size: 27px;
-      font-weight: 500;
-      letter-spacing: .08em;
-      line-height: 1.5;
+      font-size: 30px;
     }
-
-    .hero-line {
-      width: 36px;
-      height: 1px;
-      margin: 22px auto;
-      background: var(--green);
-    }
-
-    .hero-text {
-      max-width: 520px;
-      margin: 0 auto;
-      font-size: 13px;
-      line-height: 2;
-      color: #666;
-      text-align: left;
-    }
-
-    /* ========================================
-       MAIN
-    ======================================== */
 
     .container {
-      width: 100%;
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 22px 80px;
-    }
-
-    .line-status {
-      margin: 24px 0 0;
-      padding: 12px 15px;
-      background: var(--green-light);
-      border-radius: 3px;
-      font-size: 12px;
-      color: var(--green-dark);
-      text-align: center;
-    }
-
-    .line-status.error {
-      background: #fff1f1;
-      color: var(--red);
-    }
-
-    /* ========================================
-       SECTION
-    ======================================== */
-
-    .section {
-      padding: 56px 0 52px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section-head {
-      margin-bottom: 36px;
-    }
-
-    .section-number {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--green);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 15px;
-      letter-spacing: .12em;
-    }
-
-    .section-en {
-      display: block;
-      margin-bottom: 6px;
-      color: #999;
-      font-size: 10px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-
-    .section-title {
-      margin: 0;
-      font-size: 21px;
-      font-weight: 500;
-      letter-spacing: .06em;
-    }
-
-    .section-description {
-      margin: 14px 0 0;
-      color: #777;
-      font-size: 13px;
-      line-height: 1.9;
-    }
-
-    /* ========================================
-       FIELDS
-    ======================================== */
-
-    .field {
-      margin-bottom: 34px;
-    }
-
-    .field:last-child {
-      margin-bottom: 0;
-    }
-
-    .label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .required,
-    .optional {
-      display: inline-block;
-      margin-left: 8px;
-      padding: 1px 7px;
-      border-radius: 2px;
-      font-size: 10px;
-      font-weight: 500;
-      vertical-align: 2px;
-    }
-
-    .required {
-      background: var(--green);
-      color: white;
-    }
-
-    .optional {
-      background: #eee;
-      color: #777;
-    }
-
-    .help {
-      margin: -2px 0 12px;
-      color: #888;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    input[type="text"],
-    input[type="tel"],
-    input[type="date"],
-    select,
-    textarea {
-      width: 100%;
-      min-height: 52px;
-      padding: 12px 14px;
-      border: 1px solid #d6d6d1;
-      border-radius: 2px;
-      outline: none;
-      background: white;
-      color: var(--text);
-      font-size: 16px;
-      transition: border-color .2s;
-    }
-
-    textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--green);
-    }
-
-    select:disabled {
-      background: #f5f5f3;
-      color: #999;
-    }
-
-    /* ========================================
-       PRIVACY
-    ======================================== */
-
-    .privacy-box {
-      padding: 20px;
-      background: #fafaf8;
-      border: 1px solid #e4e4df;
-      font-size: 12px;
-      line-height: 1.9;
-      color: #666;
-    }
-
-    .privacy-title {
-      margin-bottom: 8px;
-      color: #444;
-      font-weight: 600;
-    }
-
-    .agree-box {
-      margin-top: 18px;
-      padding: 16px;
-      border: 1px solid #d9d9d4;
-      background: white;
-    }
-
-    .agree-label {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      cursor: pointer;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .agree-label input {
-      width: 20px;
-      height: 20px;
-      margin: 2px 0 0;
-      flex: 0 0 auto;
-      accent-color: var(--green);
-    }
-
-    /* ========================================
-       NOTICE
-    ======================================== */
-
-    .notice {
-      margin-bottom: 28px;
-      padding: 17px 18px;
-      border-left: 3px solid var(--green);
-      background: var(--green-light);
-      color: #52665b;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    /* ========================================
-       PREFERRED DATES
-    ======================================== */
-
-    .choice-card {
-      margin-bottom: 20px;
-      padding: 22px 18px;
-      background: #fafaf8;
-      border: 1px solid #e4e4df;
-    }
-
-    .choice-title {
-      margin-bottom: 16px;
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .choice-title span {
-      margin-left: 7px;
+      padding-left: 32px;
+      padding-right: 32px;
     }
 
     .choice-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns: 1.4fr 1fr;
     }
 
-    .choice-grid select {
-      background-color: white;
+    #completePage .container {
+      margin-top: 60px;
+    }
+  }
+
+
+  /* ========================================
+     SMALL PHONE
+  ======================================== */
+
+  @media (max-width: 380px) {
+
+    .hero,
+    .container {
+      width: calc(100% - 28px);
     }
 
-    .date-loading {
-      padding: 16px;
-      background: #fafaf8;
-      color: #777;
-      font-size: 12px;
-      text-align: center;
+    .hero {
+      margin-top: 28px;
+      padding-left: 18px;
+      padding-right: 18px;
     }
 
-    /* ========================================
-       ERROR
-    ======================================== */
-
-    .error-box {
-      display: none;
-      margin: 30px 0 0;
-      padding: 15px 17px;
-      background: #fff4f4;
-      border-left: 3px solid var(--red);
-      color: #9a4747;
-      font-size: 13px;
-      line-height: 1.7;
+    .container {
+      padding-left: 18px;
+      padding-right: 18px;
     }
 
-    /* ========================================
-       BUTTON
-    ======================================== */
-
-    .button-area {
-      padding: 44px 0 0;
+    .hero h1 {
+      font-size: 25px;
     }
-
-    .main-button {
-      display: block;
-      width: 100%;
-      min-height: 58px;
-      border: 0;
-      border-radius: 2px;
-      background: var(--green);
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      cursor: pointer;
-    }
-
-    .main-button:active {
-      background: var(--green-dark);
-    }
-
-    .main-button:disabled {
-      opacity: .5;
-      cursor: default;
-    }
-
-    .sub-button {
-      display: block;
-      width: 100%;
-      min-height: 54px;
-      margin-top: 12px;
-      border: 1px solid #aaa;
-      border-radius: 2px;
-      background: white;
-      color: #555;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    /* ========================================
-       CONFIRM
-    ======================================== */
-
-    #confirmPage,
-    #completePage {
-      display: none;
-    }
-
-    .confirm-intro {
-      padding: 38px 0 14px;
-      text-align: center;
-    }
-
-    .confirm-intro h2 {
-      margin: 0 0 12px;
-      font-size: 23px;
-      font-weight: 500;
-      letter-spacing: .05em;
-    }
-
-    .confirm-intro p {
-      margin: 0;
-      color: #777;
-      font-size: 13px;
-    }
-
-    .confirm-group {
-      padding: 30px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .confirm-group-title {
-      margin-bottom: 20px;
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .12em;
-    }
-
-    .confirm-row {
-      padding: 13px 0;
-    }
-
-    .confirm-label {
-      margin-bottom: 3px;
-      color: #888;
-      font-size: 11px;
-    }
-
-    .confirm-value {
-      font-size: 14px;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    /* ========================================
-       COMPLETE
-    ======================================== */
-
-    .complete {
-      padding: 80px 10px;
-      text-align: center;
-    }
-
-    .complete-mark {
-      width: 54px;
-      height: 54px;
-      margin: 0 auto 24px;
-      border: 1px solid var(--green);
-      border-radius: 50%;
-      color: var(--green);
-      font-family: Georgia, serif;
-      font-size: 30px;
-      line-height: 50px;
-    }
-
-    .complete h2 {
-      margin: 0 0 18px;
-      font-size: 22px;
-      font-weight: 500;
-    }
-
-    .complete p {
-      color: #666;
-      font-size: 13px;
-      line-height: 2;
-    }
-
-    .test-label {
-      display: inline-block;
-      margin-top: 22px;
-      padding: 7px 12px;
-      background: #f3eee4;
-      color: #826f4f;
-      font-size: 11px;
-    }
-
-    @media (min-width: 600px) {
-      .hero {
-        padding-top: 68px;
-        padding-bottom: 60px;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .container {
-        padding-left: 32px;
-        padding-right: 32px;
-      }
-
-      .choice-grid {
-        grid-template-columns: 1.4fr 1fr;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 
 <body>
