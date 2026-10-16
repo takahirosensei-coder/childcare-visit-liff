@@ -1000,7 +1000,19 @@
             placeholder="例：山田 花子"
           >
         </div>
+<div class="field">
+  <label class="label">
+    お子さまのふりがな
+    <span class="required">必須</span>
+  </label>
 
+  <input
+    type="text"
+    id="childFurigana"
+    placeholder="例：やまだ はなこ"
+    autocomplete="off"
+  >
+</div>
         <div class="field">
           <label class="label">
             お子さまの生年月日
@@ -1645,6 +1657,9 @@
 
       childName:
         valueOf('childName'),
+      
+      childFurigana:
+  valueOf('childFurigana'),
 
       birthDate:
         valueOf('birthDate'),
@@ -1798,6 +1813,18 @@ guardianRelation:
       return 'お子さまのお名前を入力してください。';
 
     }
+
+    if (!data.childFurigana) {
+
+  return 'お子さまのふりがなを入力してください。';
+
+}
+
+if (!/^[ぁ-ゖーゝゞ\s　]+$/.test(data.childFurigana)) {
+
+  return 'お子さまのふりがなは、ひらがなで入力してください。';
+
+}
 
 
     if (!data.birthDate) {
@@ -2078,16 +2105,20 @@ guardianRelation:
       confirmGroup(
         'お子さまについて',
         [
-          [
-            'お子さまのお名前',
-            data.childName
-          ],
-          [
-            'お子さまの生年月日',
-            formatSimpleDate(
-              data.birthDate
-            )
-          ],
+         [
+  'お子さまのお名前',
+  data.childName
+],
+[
+  'お子さまのふりがな',
+  data.childFurigana
+],
+[
+  'お子さまの生年月日',
+  formatSimpleDate(
+    data.birthDate
+  )
+],
           [
             '入園希望時期',
             data.desiredStart
