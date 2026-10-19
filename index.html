@@ -2323,7 +2323,12 @@ if (!/^[ぁ-ゖーゝゞ\s　]+$/.test(data.childFurigana)) {
   }
 
 
+let isVisitSubmitting = false;
+
 async function submitVisitApplication() {
+
+  // 送信中の再実行を防止
+  if (isVisitSubmitting) return;
 
   const data = getFormData();
 
@@ -2332,6 +2337,21 @@ async function submitVisitApplication() {
   if (error) {
     showError(error);
     return;
+  }
+
+  // 送信ボタンを取得
+  const submitButton = document.querySelector(
+    '#confirmPage button[onclick="submitVisitApplication()"]'
+  );
+
+  // 送信開始
+  isVisitSubmitting = true;
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = '送信中…';
+    submitButton.style.opacity = '0.6';
+    submitButton.style.cursor = 'not-allowed';
   }
 
   try {
@@ -2372,6 +2392,16 @@ async function submitVisitApplication() {
     showError(
       '送信できませんでした。通信環境をご確認のうえ、もう一度お試しください。'
     );
+
+    // エラー時のみ再送信可能にする
+    isVisitSubmitting = false;
+
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = 'この内容で送信する';
+      submitButton.style.opacity = '';
+      submitButton.style.cursor = '';
+    }
 
   }
 }
