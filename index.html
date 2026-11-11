@@ -1410,15 +1410,11 @@
 
 
   // 六町園のみ、申込日から14日後以降を選択可能にする
-  function getRokuchoMinDate() {
-    const now = new Date();
-    const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
-    return new Date(Date.UTC(
-      jstNow.getUTCFullYear(),
-      jstNow.getUTCMonth(),
-      jstNow.getUTCDate() + 14
-    )).toISOString().slice(0, 10);
-  }
+  
+function getRokuchoMinDate() {
+  return '2026-12-07';
+}
+
 
   function populateDateSelects() {
     const garden = document.getElementById('garden').value;
