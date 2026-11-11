@@ -1413,47 +1413,46 @@
   }
 
 
+  // 六町園のみ、申込日から14日後以降を選択可能にする
+  function getRokuchoMinDate() {
+    const now = new Date();
+    const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+    return new Date(Date.UTC(
+      jstNow.getUTCFullYear(),
+      jstNow.getUTCMonth(),
+      jstNow.getUTCDate() + 14
+    )).toISOString().slice(0, 10);
+  }
+
   function populateDateSelects() {
+    const garden = document.getElementById('garden').value;
+    const isRokucho = garden.includes('六町');
+    const minDate = getRokuchoMinDate();
 
-    [
-      'date1',
-      'date2',
-      'date3'
-    ].forEach(
-      function (id) {
+    ['date1', 'date2', 'date3'].forEach(function (id) {
+      const select = document.getElementById(id);
+      const previousValue = select.value;
 
-        const select =
-          document.getElementById(id);
+      select.innerHTML = '<option value="">日付を選択</option>';
 
+      availableDates.forEach(function (date) {
+        if (isRokucho && date.value < minDate) {
+          return;
+        }
 
-        select.innerHTML =
-          '<option value="">日付を選択</option>';
+        const option = document.createElement('option');
+        option.value = date.value;
+        option.textContent = date.label;
+        select.appendChild(option);
+      });
 
-
-        availableDates.forEach(
-          function (date) {
-
-            const option =
-              document.createElement(
-                'option'
-              );
-
-            option.value =
-              date.value;
-
-            option.textContent =
-              date.label;
-
-            select.appendChild(
-              option
-            );
-
-          }
-        );
-
+      // 切替後も有効な選択だけ保持する
+      if (Array.from(select.options).some(
+        option => option.value === previousValue
+      )) {
+        select.value = previousValue;
       }
-    );
-
+    });
   }
 
 
@@ -1528,6 +1527,9 @@
     garden.includes(
       '六町'
     );
+
+  // 園の切替時に、日付選択肢も更新する
+  populateDateSelects();
 
   if (thirdChoiceCard) {
 
@@ -1760,6 +1762,17 @@ guardianRelation:
 
     }
 
+
+    // 六町園の見学希望日は、第一〜第三希望すべて14日後以降
+    if (data.garden.includes('六町')) {
+      const minDate = getRokuchoMinDate();
+      const tooEarly = [data.date1, data.date2, data.date3]
+        .filter(Boolean)
+        .some(date => date < minDate);
+      if (tooEarly) {
+        return 'ちびっこランド六町園は、お申込日から14日後以降の日程をお選びください。';
+      }
+    }
 
     const duplicateError =
       validatePreferredDateOverlap(
